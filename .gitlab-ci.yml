@@ -1,0 +1,80 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"      
+      when: never
+    - when: always
+
+stages:
+ - build
+
+.build:
+  stage: build
+  tags: 
+    - ec2
+    - shell
+    - remote
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+
+build_frontend:
+  extends: .build
+  before_script:
+    - cd frontend
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/frontend
+    - export IMAGE_TAG=1.0 
+  only:
+    changes:
+      - "frontend/**/*" 
+
+build_products:
+  extends: .build
+  before_script:
+    - cd products
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
+    - export IMAGE_TAG=1.0
+  only:
+    changes:
+      - "products/**/*"
+
+.deploy_to_dev:
+  stage: deploy
+  tags: 
+    - ec2
+    - shell
+    - remote
+  before_script:
+    - chmod 400 $SSH_PRIVATE_KEY
+  script:
+    - scp -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ./docker-compose.yaml ubuntu@$DEV_SERVER_HOST:/home/ubuntu
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ubuntu@$DEV_SERVER_HOST "
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+
+        export DC_IMAGE_NAME=$IMAGE_NAME && 
+        export DC_IMAGE_TAG=$IMAGE_TAG &&
+
+        docker-compose down &&
+        docker-compose up -d"
+  environment:
+    name: development
+    url: $DEV_ENDPOINT
+
+
+deploy_frontend:
+  extends: .deploy_to_dev
+  before_script:
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/frontend
+    - export IMAGE_TAG=1.0 
+  only:
+    changes:
+      - "frontend/**/*" 
+
+deploy_products:
+  extends: .deploy_to_dev
+  before_script:
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
+    - export IMAGE_TAG=1.0
+  only:
+    changes:
+      - "products/**/*"
