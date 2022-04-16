@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  frontend:
+    image: ms-frontend:1.0
+    ports:
+    - 3000:3000
+    environment:
+    - PRODUCTS_SERVICE=products
+    - SHOPPING_CART_SERVICE=shopping-cart
+  products:
+    image: ms-products:1.0
+    ports:
+    - 3001:3001
+  shopping-cart:
+    image: ms-shopping-cart:1.0
+    ports:
+    - 3002:3002
+
