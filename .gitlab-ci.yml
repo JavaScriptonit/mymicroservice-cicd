@@ -17,6 +17,8 @@ stages:
   stage: build
   tags: 
     - monorepo
+    - mac
+    - local
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
@@ -46,6 +48,8 @@ build_products:
   stage: deploy
   tags: 
     - monorepo
+    - mac
+    - local
   before_script:
     - chmod 400 $SSH_PRIVATE_KEY
   script:
