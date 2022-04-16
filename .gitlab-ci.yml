@@ -16,9 +16,7 @@ stages:
 .build:
   stage: build
   tags: 
-    - ec2
-    - shell
-    - remote
+    - monorepo
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
@@ -47,9 +45,7 @@ build_products:
 .deploy_to_dev:
   stage: deploy
   tags: 
-    - ec2
-    - shell
-    - remote
+    - monorepo
   before_script:
     - chmod 400 $SSH_PRIVATE_KEY
   script:
