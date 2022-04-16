@@ -4,8 +4,14 @@ workflow:
       when: never
     - when: always
 
+variables:
+  DEV_SERVER_HOST: 35.180.46.122
+  DEV_ENDPOINT: http://ec2-35-180-46-122.eu-west-3.compute.amazonaws.com:3000
+
+
 stages:
  - build
+ - deploy
 
 .build:
   stage: build
