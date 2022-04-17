@@ -50,9 +50,8 @@ build_products:
     - monorepo
     - mac
     - local
-  before_script:
-    - export KUBECONFIG=$K8S_AUTH
   script:
+    - export KUBECONFIG=$K8S_AUTH
     - kubectl get pod -n my-app
 
 
