@@ -50,9 +50,8 @@ build_products:
     - monorepo
     - mac
     - local
-  before_script:
-    - export KUBECONFIG=$K8S_AUTH
   script:
+    - export KUBECONFIG=$K8S_AUTH
     - kubectl get pod -n my-app
 
 
@@ -60,8 +59,7 @@ deploy_frontend:
   extends: .deploy_to_dev
   before_script:
     - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/frontend
-    - export IMAGE_TAG=1.0 
-    - export KUBECONFIG=$K8S_AUTH
+    - export IMAGE_TAG=1.0
   only:
     changes:
       - "frontend/**/*" 
@@ -71,7 +69,6 @@ deploy_products:
   before_script:
     - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
     - export IMAGE_TAG=1.0
-    - export KUBECONFIG=$K8S_AUTH
   only:
     changes:
       - "products/**/*"
