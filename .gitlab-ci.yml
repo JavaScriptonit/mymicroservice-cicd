@@ -52,7 +52,7 @@ build_products:
     - local
   script:
     - export KUBECONFIG=$K8S_AUTH
-    - kubectl get pod -n my-app
+    - kubectl apply -f test.yaml
 
 
 deploy_frontend:
