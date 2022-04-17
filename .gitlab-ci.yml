@@ -70,7 +70,7 @@ deploy_products:
   before_script:
     - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
     - export IMAGE_TAG=1.0
-    - cd frontend
+    - cd products
   only:
     changes:
       - "products/**/*"
