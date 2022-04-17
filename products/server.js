@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
             price: 100
         }, {
             name: "keyboard",
-            price: 20
+            price: 30
         }]
     });
     res.end();
