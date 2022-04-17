@@ -61,6 +61,7 @@ deploy_frontend:
   before_script:
     - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/frontend
     - export IMAGE_TAG=1.0 
+    - export KUBECONFIG=$K8S_AUTH
   only:
     changes:
       - "frontend/**/*" 
