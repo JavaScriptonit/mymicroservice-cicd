@@ -20,5 +20,10 @@ ms-frontend:1.0
 docker run -d -p 3001:3001 ms-products:1.0
 docker run -d -p 3002:3002 ms-shopping-cart:1.0
 
-#### To start with docker-compose
+#### To start with docker-compose (repeat for each micro service)
+export COMPOSE_PROJECT_NAME=micro-service-name (frontend)
+export DC_IMAGE_NAME=micro-service-image-name (ms-frontend)
+export DC_IMAGE_TAG=tag (1.0)
+export DC_APP_PORT=port (3000)
+
 docker-compose -d up
