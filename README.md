@@ -5,11 +5,11 @@ Microservices project made up of 1 frontend service and 2 backend services: prod
     docker build -t ms-products:1.0 products
     docker build -t ms-shopping-cart:1.0 shopping-cart
 
-#### To start them locally
-    cd service-name 
+#### To start them locally (repeat for each micro service)
+    cd micro-service-name 
     npm install
     npm run
-    Repeat for each service
+    
 
 #### To start them as docker containers - separate commands
     docker run -d -p 3000:3000 \
