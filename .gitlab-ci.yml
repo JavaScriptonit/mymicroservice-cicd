@@ -83,7 +83,7 @@ build_shopping_cart:
       export DC_IMAGE_TAG=$IMAGE_TAG &&
       export DC_APP_PORT=$APP_PORT &&
 
-      docker network create micro_service &&
+      docker network create micro_service || true &&
 
       docker-compose down &&
       docker-compose up -d"
