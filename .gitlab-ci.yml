@@ -25,24 +25,31 @@ stages:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
     - docker push $IMAGE_NAME:$IMAGE_TAG
-  only:
-    changes:
-      - "${MICRO_SERVICE}/**/*"
+
 
 build_frontend:
   extends: .build
   variables:
     MICRO_SERVICE: frontend
     SERVICE_VERSION: "1.3"
+  only:
+    changes:
+      - "frontend/**/*"
 
 build_products:
   extends: .build
   variables:
     MICRO_SERVICE: products
     SERVICE_VERSION: "1.8"
+  only:
+    changes:
+      - "products/**/*"
 
 build_shopping_cart:
   extends: .build
   variables:
     MICRO_SERVICE: shopping-cart
     SERVICE_VERSION: "2.1"
+  only:
+    changes:
+      - "shopping-cart/**/*"
