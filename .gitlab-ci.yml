@@ -27,7 +27,7 @@ stages:
     - docker push $IMAGE_NAME:$IMAGE_TAG
   only:
     changes:
-      - "$MICRO_SERVICE/**/*"
+      - "${MICRO_SERVICE}/**/*"
 
 build_frontend:
   extends: .build
