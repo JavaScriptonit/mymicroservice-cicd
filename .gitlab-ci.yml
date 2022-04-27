@@ -78,12 +78,12 @@ build_shopping_cart:
     - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ubuntu@$DEPLOYMENT_SERVER_HOST "
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
 
-      export COMPOSE_PROJECT_NAME=$MICRO_SERVICE
-      export DC_IMAGE_NAME=$IMAGE_NAME
-      export DC_IMAGE_TAG=$IMAGE_TAG
-      export DC_APP_PORT=$APP_PORT
+      export COMPOSE_PROJECT_NAME=$MICRO_SERVICE &&
+      export DC_IMAGE_NAME=$IMAGE_NAME &&
+      export DC_IMAGE_TAG=$IMAGE_TAG &&
+      export DC_APP_PORT=$APP_PORT &&
 
-      docker-compose down
+      docker-compose down &&
       docker-compose up -d"
   environment:
     name: development
