@@ -1,0 +1,63 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"      
+      when: never
+    - when: always
+
+stages:
+  - build
+  - deploy
+
+build_frontend:
+  stage: build
+  tags:
+    - ec2
+    - remote
+    - shell
+  before_script:
+    - cd frontend
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/frontend
+    - export IMAGE_TAG=1.3
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  only:
+    changes:
+      - "frontend/**/*"
+
+build_products:
+  stage: build
+  tags:
+    - ec2
+    - remote
+    - shell
+  before_script:
+    - cd products
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/products
+    - export IMAGE_TAG=1.8
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  only:
+    changes:
+      - "products/**/*"
+
+build_shopping_cart:
+  stage: build
+  tags:
+    - ec2
+    - remote
+    - shell
+  before_script:
+    - cd shopping-cart
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/microservice/shopping-cart
+    - export IMAGE_TAG=2.1
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  only:
+    changes:
+      - "shopping-cart/**/*"
