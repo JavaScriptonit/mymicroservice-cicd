@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 services:
   app:
     image: ${DC_IMAGE_NAME}:${DC_IMAGE_TAG}
@@ -8,6 +8,6 @@ services:
       - micro_service
 
 networks:
-  micro_service:
-    name: micro_service
-    driver: bridge
+  default:
+    external:
+      name: micro_service
