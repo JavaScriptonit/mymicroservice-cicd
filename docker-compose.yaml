@@ -8,6 +8,6 @@ services:
       - micro_service
 
 networks:
-  default:
+  micro_service:
     external:
       name: micro_service
