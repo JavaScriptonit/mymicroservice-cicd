@@ -7,8 +7,8 @@ RUN npm install
 COPY index.html .
 COPY server.js .
 
-ENV PRODUCTS_SERVICE="products_app_1"
-ENV SHOPPING_CART_SERVICE="shopping-cart_app_1"
+ENV PRODUCTS_SERVICE="host.docker.internal"
+ENV SHOPPING_CART_SERVICE="host.docker.internal"
 
 EXPOSE 3000
 CMD ["npm", "start"]
