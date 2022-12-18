@@ -1,7 +1,6 @@
 let express = require('express');
 let app = express();
 
-// test
 app.get('/', function (req, res) {
     res.json({ 
         products: [{
