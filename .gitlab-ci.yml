@@ -88,7 +88,6 @@ build_shopping_cart:
       export DC_IMAGE_TAG=$IMAGE_TAG &&
       export DC_APP_PORT=$APP_PORT &&
       
-      # 1st time creates network and after creating next line fails. Use "|| true" not to fail
       docker network create micro_service || true &&
       
       docker-compose down &&
