@@ -122,9 +122,9 @@ deploy_products:
 deploy_shopping_cart:
   extends: .deploy
   variables:
-    MICRO_SERVICE: shopping_cart
+    MICRO_SERVICE: shopping-cart
     SERVICE_VERSION: "2.1"
     APP_PORT: 3002
   only:
     changes:
-      - "shopping_cart/**/*"
+      - "shopping-cart/**/*"
