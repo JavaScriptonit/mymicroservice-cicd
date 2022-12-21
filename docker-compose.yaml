@@ -9,5 +9,7 @@ services:
 
 networks:
   micro_service:
-    name: micro_service
-    driver: bridge
+    external:
+      name: micro_service
+    # use "driver" to use your own network or use "external" to use existing one
+    # driver: bridge
