@@ -6,8 +6,8 @@ workflow:
 
 
 variables:
-  DEPLOYMENT_SERVER_HOST: "3.92.48.91"
-  APP_ENDPOINT: ec2-3-92-48-91.compute-1.amazonaws.com
+  DEPLOYMENT_SERVER_HOST: "174.129.174.241"
+  APP_ENDPOINT: ec2-174-129-174-241.compute-1.amazonaws.com
 
 
 stages:
